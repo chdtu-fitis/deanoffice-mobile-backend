@@ -18,9 +18,7 @@ CREATE SEQUENCE public.speciality_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
 ALTER TABLE ONLY public.speciality ALTER COLUMN id SET DEFAULT nextval('public.speciality_id_seq'::regclass);
-
 
 COPY public.speciality (id, name, name_eng, active, code, field_of_study, field_of_study_code, field_of_study_eng) FROM stdin;
 13	Системи і методи прийняття рішень		t	8.04030302	\N	\N	\N

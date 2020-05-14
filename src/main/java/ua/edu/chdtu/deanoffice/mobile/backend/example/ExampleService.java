@@ -10,7 +10,7 @@ import java.util.List;
 public class ExampleService {
     public List<ExampleStudent> getStudents() {
         ExampleStudent student1 = new ExampleStudent(1, "Петренко Петро");
-        ExampleStudent student2 = new ExampleStudent(2, "Петренко Петро");
+        ExampleStudent student2 = new ExampleStudent(2, "Іваненко Іван");
         List<ExampleStudent> students = new ArrayList<>();
         students.add(student1);
         students.add(student2);
