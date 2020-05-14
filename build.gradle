@@ -5,7 +5,7 @@ plugins {
     id 'idea'
 }
 
-group = 'ua.edu.chdtu.deanoffice'
+group = 'ua.edu.chdtu.deanoffice.mobile.backend'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
