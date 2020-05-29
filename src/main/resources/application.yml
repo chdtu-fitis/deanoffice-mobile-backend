@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/deanoffice-mobile
+        url: jdbc:postgresql://localhost:5432/Student_CSTU
         driver-class-name: org.postgresql.Driver
         username: postgres
         password: admin
