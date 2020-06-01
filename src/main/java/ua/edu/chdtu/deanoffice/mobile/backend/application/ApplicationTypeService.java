@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.example.application;
+package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,12 +7,11 @@ import ua.edu.chdtu.deanoffice.mobile.backend.entity.ApplicationType;
 import java.util.List;
 
 @Service
-public class ApplicationService {
-
-    private ApplicationRepository applicationRepository;
+public class ApplicationTypeService {
+    private ApplicationTypeRepository applicationRepository;
 
     @Autowired
-    public ApplicationService(ApplicationRepository applicationRepository) {
+    public ApplicationTypeService(ApplicationTypeRepository applicationRepository) {
         this.applicationRepository = applicationRepository;
     }
 
@@ -20,5 +19,4 @@ public class ApplicationService {
         List<ApplicationType> application = applicationRepository.getApplication();
         return application;
     }
-
 }

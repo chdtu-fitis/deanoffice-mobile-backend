@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.example.application;
+package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,10 +8,10 @@ import ua.edu.chdtu.deanoffice.mobile.backend.entity.ApplicationType;
 import java.util.List;
 
 @Controller
-public class ApplicationController {
-    private ApplicationService applicationService;
+public class ApplicationTypeController {
+    private ApplicationTypeService applicationService;
 
-    public ApplicationController(ApplicationService applicationService) {
+    public ApplicationTypeController(ApplicationTypeService applicationService) {
         this.applicationService = applicationService;
     }
 
