@@ -3,21 +3,26 @@ package ua.edu.chdtu.deanoffice.mobile.backend.application;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import ua.edu.chdtu.deanoffice.mobile.backend.dto.ApplicationTypeDTO;
 import ua.edu.chdtu.deanoffice.mobile.backend.entity.ApplicationType;
-
 import java.util.List;
+import static ua.edu.chdtu.deanoffice.mobile.backend.general.mapper.Mapper.map;
 
 @Controller
 public class ApplicationTypeController {
-    private ApplicationTypeService applicationService;
+    private ApplicationTypeService applicationTypeService;
 
-    public ApplicationTypeController(ApplicationTypeService applicationService) {
-        this.applicationService = applicationService;
+    public ApplicationTypeController(ApplicationTypeService applicationTypeService) {
+        this.applicationTypeService = applicationTypeService;
     }
 
     @GetMapping("/application")
-    public ResponseEntity<List<ApplicationType>> getApplications() {
-        List<ApplicationType> application = applicationService.getApplication();
-        return ResponseEntity.ok(application);
+    public ResponseEntity<List<ApplicationTypeDTO>> getApplicationTypes() {
+            List<ApplicationType> applicationTypes = applicationTypeService.getApplicationType();
+            return ResponseEntity.ok(mapToSpecialityDTO(applicationTypes));
+    }
+
+    private List<ApplicationTypeDTO> mapToSpecialityDTO(List<ApplicationType> source) {
+        return map(source, ApplicationTypeDTO.class);
     }
 }

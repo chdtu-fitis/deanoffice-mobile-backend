@@ -29,7 +29,9 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 //    implementation 'org.springframework.boot:spring-boot-starter-undertow'
 //    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-//    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.7'
 
     implementation 'org.flywaydb:flyway-core'
     compileOnly 'org.projectlombok:lombok'

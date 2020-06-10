@@ -11,6 +11,6 @@ import javax.persistence.Id;
 @Entity
 public class ApplicationType {
     @Id
-    int id;
-    String name;
+    private int id;
+    private String name;
 }

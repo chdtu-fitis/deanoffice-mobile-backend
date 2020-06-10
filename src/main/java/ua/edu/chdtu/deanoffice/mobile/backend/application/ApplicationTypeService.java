@@ -8,15 +8,15 @@ import java.util.List;
 
 @Service
 public class ApplicationTypeService {
-    private ApplicationTypeRepository applicationRepository;
+    private ApplicationTypeRepository applicationTypeRepository;
 
     @Autowired
-    public ApplicationTypeService(ApplicationTypeRepository applicationRepository) {
-        this.applicationRepository = applicationRepository;
+    public ApplicationTypeService(ApplicationTypeRepository applicationTypeRepository) {
+        this.applicationTypeRepository = applicationTypeRepository;
     }
 
-    public List<ApplicationType> getApplication() {
-        List<ApplicationType> application = applicationRepository.getApplication();
+    public List<ApplicationType> getApplicationType() {
+        List<ApplicationType> application = applicationTypeRepository.getApplicationType();
         return application;
     }
 }
