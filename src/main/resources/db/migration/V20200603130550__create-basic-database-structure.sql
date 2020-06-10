@@ -1,18 +1,3 @@
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
 CREATE TABLE public.application (
     id integer NOT NULL,
     application_type_id integer NOT NULL,
@@ -23,7 +8,6 @@ CREATE TABLE public.application (
 ALTER TABLE public.application OWNER TO postgres;
 
 CREATE SEQUENCE public.application_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -42,7 +26,6 @@ CREATE TABLE public.application_type (
 ALTER TABLE public.application_type OWNER TO postgres;
 
 CREATE SEQUENCE public.application_type_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -63,7 +46,6 @@ CREATE TABLE public.specialization (
 ALTER TABLE public.specialization OWNER TO postgres;
 
 CREATE SEQUENCE public.educational_programs_ep_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -84,7 +66,6 @@ CREATE TABLE public.faculty (
 ALTER TABLE public.faculty OWNER TO postgres;
 
 CREATE SEQUENCE public.faculties_faculty_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -104,7 +85,6 @@ CREATE TABLE public.student_group (
 ALTER TABLE public.student_group OWNER TO postgres;
 
 CREATE SEQUENCE public.groups_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -124,7 +104,6 @@ CREATE TABLE public.speciality (
 ALTER TABLE public.speciality OWNER TO postgres;
 
 CREATE SEQUENCE public.speciality_speciality_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -157,7 +136,6 @@ CREATE TABLE public.student_degree (
 ALTER TABLE public.student_degree OWNER TO postgres;
 
 CREATE SEQUENCE public.student_degree_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -169,7 +147,6 @@ ALTER TABLE public.student_degree_id_seq OWNER TO postgres;
 ALTER SEQUENCE public.student_degree_id_seq OWNED BY public.student_degree.id;
 
 CREATE SEQUENCE public.students_students_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -196,22 +173,6 @@ ALTER TABLE ONLY public.student_degree ALTER COLUMN id SET DEFAULT nextval('publ
 
 ALTER TABLE ONLY public.student_group ALTER COLUMN id SET DEFAULT nextval('public.groups_id_seq'::regclass);
 
-SELECT pg_catalog.setval('public.application_id_seq', 1, false);
-
-SELECT pg_catalog.setval('public.application_type_id_seq', 12, true);
-
-SELECT pg_catalog.setval('public.educational_programs_ep_id_seq', 1, false);
-
-SELECT pg_catalog.setval('public.faculties_faculty_id_seq', 1, false);
-
-SELECT pg_catalog.setval('public.groups_id_seq', 1, false);
-
-SELECT pg_catalog.setval('public.speciality_speciality_id_seq', 1, false);
-
-SELECT pg_catalog.setval('public.student_degree_id_seq', 1, false);
-
-SELECT pg_catalog.setval('public.students_students_id_seq', 1, false);
-
 ALTER TABLE ONLY public.application
     ADD CONSTRAINT application_pkey PRIMARY KEY (id);
 
@@ -237,25 +198,25 @@ ALTER TABLE ONLY public.faculty
     ADD CONSTRAINT uk_faculty_name UNIQUE (name);
 
 ALTER TABLE ONLY public.specialization
-    ADD CONSTRAINT educational_programs_faculty_id_fkey FOREIGN KEY (faculty_id) REFERENCES public.faculty(id);
+    ADD CONSTRAINT fk_educational_programs_faculty_id FOREIGN KEY (faculty_id) REFERENCES public.faculty(id);
 
 ALTER TABLE ONLY public.specialization
-    ADD CONSTRAINT educational_programs_speciality_id_fkey FOREIGN KEY (speciality_id) REFERENCES public.speciality(id);
+    ADD CONSTRAINT fk_educational_programs_speciality_id FOREIGN KEY (speciality_id) REFERENCES public.speciality(id);
 
 ALTER TABLE ONLY public.application
-    ADD CONSTRAINT fk_application_type FOREIGN KEY (application_type_id) REFERENCES public.application_type(id);
+    ADD CONSTRAINT fk_application_application_type FOREIGN KEY (application_type_id) REFERENCES public.application_type(id);
 
 ALTER TABLE ONLY public.student_degree
-    ADD CONSTRAINT fk_specialization FOREIGN KEY (specialization_id) REFERENCES public.specialization(id);
+    ADD CONSTRAINT fk_student_degree_specialization FOREIGN KEY (specialization_id) REFERENCES public.specialization(id);
 
 ALTER TABLE ONLY public.student_degree
-    ADD CONSTRAINT fk_student FOREIGN KEY (student_id) REFERENCES public.student(id);
+    ADD CONSTRAINT fk_student_degree_student FOREIGN KEY (student_id) REFERENCES public.student(id);
 
 ALTER TABLE ONLY public.student_degree
-    ADD CONSTRAINT fk_student_group FOREIGN KEY (student_group_id) REFERENCES public.student_group(id);
+    ADD CONSTRAINT fk_student_degree_student_group FOREIGN KEY (student_group_id) REFERENCES public.student_group(id);
 
 ALTER TABLE ONLY public.student_group
-    ADD CONSTRAINT groups_ep_id_fkey FOREIGN KEY (specialization_id) REFERENCES public.specialization(id);
+    ADD CONSTRAINT fk_student_group_specialization FOREIGN KEY (specialization_id) REFERENCES public.specialization(id);
 
 
 
