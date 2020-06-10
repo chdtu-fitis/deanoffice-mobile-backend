@@ -18,7 +18,7 @@ public class ApplicationTypeController {
 
     @GetMapping("/application-type")
     public ResponseEntity<List<ApplicationTypeDTO>> getApplicationTypes() {
-            List<ApplicationType> applicationTypes = applicationTypeService.getApplicationType();
+            List<ApplicationType> applicationTypes = applicationTypeService.getApplicationTypes();
             return ResponseEntity.ok(map(applicationTypes, ApplicationTypeDTO.class));
     }
 }

@@ -77,7 +77,7 @@ ALTER SEQUENCE public.educational_programs_ep_id_seq OWNED BY public.specializat
 
 CREATE TABLE public.faculty (
     id integer NOT NULL,
-    name text NOT NULL,
+    name character varying(100) NOT NULL,
     dean_name character varying(50) NOT NULL
 );
 
@@ -97,7 +97,7 @@ ALTER SEQUENCE public.faculties_faculty_id_seq OWNED BY public.faculty.id;
 
 CREATE TABLE public.student_group (
     id integer NOT NULL,
-    name character varying(12) NOT NULL,
+    name character varying(30) NOT NULL,
     specialization_id integer NOT NULL
 );
 
@@ -118,7 +118,7 @@ ALTER SEQUENCE public.groups_id_seq OWNED BY public.student_group.id;
 CREATE TABLE public.speciality (
     id integer NOT NULL,
     code smallint NOT NULL,
-    name character varying(60) NOT NULL
+    name character varying(100) NOT NULL
 );
 
 ALTER TABLE public.speciality OWNER TO postgres;

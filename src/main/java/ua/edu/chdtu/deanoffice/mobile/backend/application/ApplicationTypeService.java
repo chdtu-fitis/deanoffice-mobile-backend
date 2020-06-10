@@ -15,8 +15,8 @@ public class ApplicationTypeService {
         this.applicationTypeRepository = applicationTypeRepository;
     }
 
-    public List<ApplicationType> getApplicationType() {
-        List<ApplicationType> application = applicationTypeRepository.getApplicationType();
-        return application;
+    public List<ApplicationType> getApplicationTypes() {
+        List<ApplicationType> applicationTypes = applicationTypeRepository.findAll();
+        return applicationTypes;
     }
 }

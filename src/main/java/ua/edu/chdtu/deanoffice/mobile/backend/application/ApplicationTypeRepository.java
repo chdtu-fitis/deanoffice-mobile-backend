@@ -6,6 +6,6 @@ import ua.edu.chdtu.deanoffice.mobile.backend.entity.ApplicationType;
 import java.util.List;
 
 public interface ApplicationTypeRepository extends JpaRepository<ApplicationType, Integer> {
-    @Query("SELECT a FROM ApplicationType a")
-    List<ApplicationType> getApplicationType();
+//    @Query("SELECT a FROM ApplicationType a")
+//    List<ApplicationType> getApplicationType();
 }
