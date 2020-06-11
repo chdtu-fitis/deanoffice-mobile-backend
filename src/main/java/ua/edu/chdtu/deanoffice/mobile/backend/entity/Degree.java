@@ -1,6 +1,14 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.entity;
 
-public class ApplicationTypeDTO {
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Degree {
+    @Id
     private int id;
     private String name;
 

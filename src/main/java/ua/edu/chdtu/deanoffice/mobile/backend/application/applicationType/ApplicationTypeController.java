@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.application;
+package ua.edu.chdtu.deanoffice.mobile.backend.application.applicationType;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class ApplicationType {
+public class Faculty {
     @Id
     private int id;
     private String name;
+    private String deanName;
+    private String abbr;
 
     public int getId() {
         return id;
@@ -26,5 +28,21 @@ public class ApplicationType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDeanName() {
+        return deanName;
+    }
+
+    public void setDeanName(String deanName) {
+        this.deanName = deanName;
+    }
+
+    public String getAbbr() {
+        return abbr;
+    }
+
+    public void setAbbr(String abbr) {
+        this.abbr = abbr;
     }
 }

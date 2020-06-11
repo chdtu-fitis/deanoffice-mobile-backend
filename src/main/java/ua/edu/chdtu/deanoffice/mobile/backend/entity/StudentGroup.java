@@ -5,12 +5,15 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class ApplicationType {
+public class StudentGroup {
     @Id
     private int id;
     private String name;
+    @ManyToOne
+    private Specialization specialization;
 
     public int getId() {
         return id;
@@ -26,5 +29,13 @@ public class ApplicationType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
     }
 }

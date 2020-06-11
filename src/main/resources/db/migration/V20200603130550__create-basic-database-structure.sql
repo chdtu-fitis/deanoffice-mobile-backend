@@ -1,7 +1,7 @@
 CREATE TABLE public.application (
     id integer NOT NULL,
     application_type_id integer NOT NULL,
-    headers character varying(800) NOT NULL,
+    header character varying(800) NOT NULL,
     body character varying(1500) NOT NULL
 );
 
@@ -36,11 +36,29 @@ ALTER TABLE public.application_type_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE public.application_type_id_seq OWNED BY public.application_type.id;
 
+CREATE TABLE public.degree (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+ALTER TABLE public.degree OWNER TO postgres;
+
+CREATE SEQUENCE degree_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.degree_id_seq OWNED BY degree.id;
+
 CREATE TABLE public.specialization (
     id integer NOT NULL,
     name character varying(100) NOT NULL,
     speciality_id integer NOT NULL,
-    faculty_id integer NOT NULL
+    faculty_id integer NOT NULL,
+    degree_id integer NOT NULL
 );
 
 ALTER TABLE public.specialization OWNER TO postgres;
@@ -60,7 +78,8 @@ ALTER SEQUENCE public.educational_programs_ep_id_seq OWNED BY public.specializat
 CREATE TABLE public.faculty (
     id integer NOT NULL,
     name character varying(100) NOT NULL,
-    dean_name character varying(50) NOT NULL
+    dean_name character varying(50) NOT NULL,
+    abbr character varying(20) NOT NULL
 );
 
 ALTER TABLE public.faculty OWNER TO postgres;
@@ -126,7 +145,7 @@ ALTER TABLE public.student OWNER TO postgres;
 
 CREATE TABLE public.student_degree (
     id integer NOT NULL,
-    payment character varying(8) DEFAULT 'BUDGET'::character varying NOT NULL,
+    payment character varying(25) DEFAULT 'BUDGET'::character varying NOT NULL,
     specialization_id integer NOT NULL,
     student_id integer NOT NULL,
     student_group_id integer NOT NULL,
@@ -167,6 +186,8 @@ ALTER TABLE ONLY public.speciality ALTER COLUMN id SET DEFAULT nextval('public.s
 
 ALTER TABLE ONLY public.specialization ALTER COLUMN id SET DEFAULT nextval('public.educational_programs_ep_id_seq'::regclass);
 
+ALTER TABLE ONLY public.degree ALTER COLUMN id SET DEFAULT nextval('degree_id_seq'::regclass);
+
 ALTER TABLE ONLY public.student ALTER COLUMN id SET DEFAULT nextval('public.students_students_id_seq'::regclass);
 
 ALTER TABLE ONLY public.student_degree ALTER COLUMN id SET DEFAULT nextval('public.student_degree_id_seq'::regclass);
@@ -178,6 +199,9 @@ ALTER TABLE ONLY public.application
 
 ALTER TABLE ONLY public.application_type
     ADD CONSTRAINT application_type_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.degree
+    ADD CONSTRAINT degree_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.specialization
     ADD CONSTRAINT educational_programs_pkey PRIMARY KEY (id);
@@ -196,6 +220,9 @@ ALTER TABLE ONLY public.student
 
 ALTER TABLE ONLY public.faculty
     ADD CONSTRAINT uk_faculty_name UNIQUE (name);
+
+ALTER TABLE ONLY public.degree
+    ADD CONSTRAINT uk_degree_name UNIQUE (name);
 
 ALTER TABLE ONLY public.specialization
     ADD CONSTRAINT fk_educational_programs_faculty_id FOREIGN KEY (faculty_id) REFERENCES public.faculty(id);
@@ -217,6 +244,9 @@ ALTER TABLE ONLY public.student_degree
 
 ALTER TABLE ONLY public.student_group
     ADD CONSTRAINT fk_student_group_specialization FOREIGN KEY (specialization_id) REFERENCES public.specialization(id);
+
+ALTER TABLE ONLY specialization
+    ADD CONSTRAINT fk_specialization_degree FOREIGN KEY (degree_id) REFERENCES public.degree(id);
 
 
 
