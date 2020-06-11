@@ -2,7 +2,7 @@ package ua.edu.chdtu.deanoffice.mobile.backend.application.dataForApplication;
 
 public class RetakeExamApplicationData {
     private String course;
-    private byte knowledge_control;
+    private int knowledgeControl;
 
     public String getCourse() {
         return course;
@@ -12,11 +12,11 @@ public class RetakeExamApplicationData {
         this.course = course;
     }
 
-    public byte getKnowledge_control() {
-        return knowledge_control;
+    public int getKnowledgeControl() {
+        return knowledgeControl;
     }
 
-    public void setKnowledge_control(byte knowledge_control) {
-        this.knowledge_control = knowledge_control;
+    public void setKnowledgeControl(int knowledgeControl) {
+        this.knowledgeControl = knowledgeControl;
     }
 }

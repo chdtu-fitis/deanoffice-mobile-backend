@@ -27,7 +27,7 @@ public class GenerateAppliсationService {
         if(parameters.applicationType == 2) {
             RetakeExamApplicationData retakeExamApplicationData = new Gson().fromJson(parameters.json, RetakeExamApplicationData.class);
             generatedApplication.setHeader(buildHeader(application.getHeaders()));
-            generatedApplication.setBody(buildBody(application.getBody(), retakeExamApplicationData.getKnowledge_control(), retakeExamApplicationData.getCourse()));
+            generatedApplication.setBody(buildBody(application.getBody(), retakeExamApplicationData.getKnowledgeControl(), retakeExamApplicationData.getCourse()));
         }
 
         else if(parameters.applicationType == 7) {
@@ -80,9 +80,9 @@ public class GenerateAppliсationService {
         return headerTemplate;
     }
 
-    public String buildBody(String bodyTemplate, byte knowledge_control, String course) {
+    public String buildBody(String bodyTemplate, int knowledgeControl, String course) {
         StudentDegree studentDegree = studentDegreeRepository.findById(1).get();
-        bodyTemplate = bodyTemplate.replace("#knowledge_control", knowledge_control==0?"іспиту":"заліку");
+        bodyTemplate = bodyTemplate.replace("#knowledge_control", knowledgeControl==0?"іспиту":"заліку");
         bodyTemplate = bodyTemplate.replace("#course", course);
         bodyTemplate = bodyTemplate.replace("#degree", studentDegree.getSpecialization().getDegree().getName());
         return bodyTemplate;
