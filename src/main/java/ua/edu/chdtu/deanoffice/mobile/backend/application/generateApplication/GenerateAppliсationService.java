@@ -29,13 +29,11 @@ public class GenerateAppliсationService {
             generatedApplication.setHeader(buildHeader(application.getHeaders()));
             generatedApplication.setBody(buildBody(application.getBody(), retakeExamApplicationData.getKnowledgeControl(), retakeExamApplicationData.getCourse()));
         }
-
         else if(parameters.applicationType == 7) {
             RenewApplicationData renewApplicationData = new Gson().fromJson(parameters.json, RenewApplicationData.class);
             generatedApplication.setHeader(buildHeader8(application.getHeaders()));
             generatedApplication.setBody(buildBody7(application.getBody(), renewApplicationData.getDate()));
         }
-
         else if(parameters.applicationType == 8) {
             RenewApplicationData renewApplicationData = new Gson().fromJson(parameters.json, RenewApplicationData.class);
             generatedApplication.setHeader(buildHeader8(application.getHeaders()));
