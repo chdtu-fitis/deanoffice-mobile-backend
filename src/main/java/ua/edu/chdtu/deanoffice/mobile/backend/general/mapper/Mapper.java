@@ -14,4 +14,8 @@ public class Mapper {
     public static <T> List<T> map(List source, Class<T> destination) {
         return modelMapper.map(source, new ListParameterizedType(destination));
     }
+
+    public static <T> T map(Object source, Class<T> destination) {
+        return modelMapper.map(source, destination);
+    }
 }

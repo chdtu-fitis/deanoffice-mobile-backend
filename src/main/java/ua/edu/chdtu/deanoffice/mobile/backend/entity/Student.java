@@ -1,10 +1,8 @@
 package ua.edu.chdtu.deanoffice.mobile.backend.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Student {
@@ -14,6 +12,8 @@ public class Student {
     private String surname;
     private String patronimic;
     private String sex;
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<StudentDegree> degrees = new HashSet<>();
 
     public int getId() {
         return id;
@@ -53,5 +53,13 @@ public class Student {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public Set<StudentDegree> getDegrees() {
+        return degrees;
+    }
+
+    public void setDegrees(Set<StudentDegree> degrees) {
+        this.degrees = degrees;
     }
 }

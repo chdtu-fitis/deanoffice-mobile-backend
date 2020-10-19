@@ -1,8 +1,5 @@
 package ua.edu.chdtu.deanoffice.mobile.backend.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -19,6 +16,15 @@ public class StudentDegree {
     @ManyToOne
     private StudentGroup studentGroup;
     private String tuitionForm;
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public int getId() {
         return id;
