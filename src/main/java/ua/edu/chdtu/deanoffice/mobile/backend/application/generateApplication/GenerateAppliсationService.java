@@ -26,17 +26,17 @@ public class GenerateAppliсationService {
         Application application = applicationRepository.findById(parameters.applicationType).get();
         if(parameters.applicationType == 2) {
             RetakeExamApplicationData retakeExamApplicationData = new Gson().fromJson(parameters.json, RetakeExamApplicationData.class);
-            generatedApplication.setHeader(buildHeader(application.getHeaders()));
+            generatedApplication.setHeader(buildHeader(application.getHeader()));
             generatedApplication.setBody(buildBody(application.getBody(), retakeExamApplicationData.getKnowledgeControl(), retakeExamApplicationData.getCourse()));
         }
         else if(parameters.applicationType == 7) {
             RenewApplicationData renewApplicationData = new Gson().fromJson(parameters.json, RenewApplicationData.class);
-            generatedApplication.setHeader(buildHeader8(application.getHeaders()));
+            generatedApplication.setHeader(buildHeader8(application.getHeader()));
             generatedApplication.setBody(buildBody7(application.getBody(), renewApplicationData.getDate()));
         }
         else if(parameters.applicationType == 8) {
             RenewApplicationData renewApplicationData = new Gson().fromJson(parameters.json, RenewApplicationData.class);
-            generatedApplication.setHeader(buildHeader8(application.getHeaders()));
+            generatedApplication.setHeader(buildHeader8(application.getHeader()));
             generatedApplication.setBody(buildBody8(application.getBody(), renewApplicationData.getDate()));
         }
         return generatedApplication;

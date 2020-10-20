@@ -3,7 +3,6 @@ package ua.edu.chdtu.deanoffice.mobile.backend.infoAboutStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import ua.edu.chdtu.deanoffice.mobile.backend.infoAboutStudent.dto.StudentDTO;
 
@@ -19,9 +18,7 @@ public class InformationAboutStudentController {
     }
 
     @GetMapping("/info-about-student")
-    public ResponseEntity getInfoAboutStudent(@RequestHeader String authorization) {
-        String token = authorization;
-        token = token.replace("Bearer ", "");
-        return ResponseEntity.ok(map(restService.getStudentInfo(token), StudentDTO.class));
+    public ResponseEntity getInfoAboutStudent() {
+        return ResponseEntity.ok(map(restService.getStudentInfo(), StudentDTO.class));
     }
 }

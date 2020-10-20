@@ -95,6 +95,19 @@ ALTER TABLE public.faculties_faculty_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE public.faculties_faculty_id_seq OWNED BY public.faculty.id;
 
+CREATE TABLE public.application_user
+(
+    id integer NOT NULL,
+    username character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT application_user_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.application_user
+    OWNER to postgres;
+
 CREATE TABLE public.student_group (
     id integer NOT NULL,
     name character varying(30) NOT NULL,
@@ -149,7 +162,8 @@ CREATE TABLE public.student_degree (
     specialization_id integer NOT NULL,
     student_id integer NOT NULL,
     student_group_id integer NOT NULL,
-    tuition_form character varying(10) NOT NULL
+    tuition_form character varying(10) NOT NULL,
+    active boolean NOT NULL
 );
 
 ALTER TABLE public.student_degree OWNER TO postgres;

@@ -1,22 +1,11 @@
 package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class GeneratedApplication {
     private String header;
     private String body;
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
 }
