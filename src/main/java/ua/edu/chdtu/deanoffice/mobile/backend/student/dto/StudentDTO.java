@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.infoAboutStudent.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.student.dto;
 
 import lombok.Getter;
 import lombok.Setter;

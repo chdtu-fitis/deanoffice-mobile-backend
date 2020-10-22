@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.infoAboutStudent.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.student.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class SpecializationDTO {
     private String name;
-    private SpecialityDTO speciality;
+    private NamedDTO speciality;
     private NamedDTO degree;
 }

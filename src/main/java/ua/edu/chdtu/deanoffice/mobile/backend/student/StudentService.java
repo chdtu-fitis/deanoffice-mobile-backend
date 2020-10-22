@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.infoAboutStudent;
+package ua.edu.chdtu.deanoffice.mobile.backend.student;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -17,11 +17,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class InformationAboutStudentService {
+public class StudentService {
 
     private final RestTemplate restTemplate;
 
-    public InformationAboutStudentService(RestTemplateBuilder restTemplateBuilder) {
+    public StudentService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
