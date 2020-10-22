@@ -1,8 +1,8 @@
 package ua.edu.chdtu.deanoffice.mobile.backend.security;
 
-import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,15 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
+import static ua.edu.chdtu.deanoffice.mobile.backend.security.SecurityConstants.TOKEN_HEADER;
+import static ua.edu.chdtu.deanoffice.mobile.backend.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-
-    private static final Logger log = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
-
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
@@ -31,51 +30,54 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws IOException, ServletException {
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
-        if (authentication == null) {
+        String token = getToken(request);
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
-
+        UsernamePasswordAuthenticationToken authentication = getAuthentication(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(SecurityConstants.TOKEN_HEADER);
-        if (StringUtils.isNotEmpty(token) && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+    private UsernamePasswordAuthenticationToken getAuthentication(String token) {
+        byte[] signingKey = SecurityConstants.JWT_SECRET.getBytes();
+        String user;
+        String userId;
+        List<GrantedAuthority> roles = new ArrayList<>();
+        if (token != null) {
             try {
-                byte[] signingKey = SecurityConstants.JWT_SECRET.getBytes();
-
-                Jws<Claims> parsedToken = Jwts.parser()
+                Claims claims = Jwts.parser()
                         .setSigningKey(signingKey)
-                        .parseClaimsJws(token.replace("Bearer ", ""));
-
-                String username = parsedToken
-                        .getBody()
-                        .getSubject();
-
-                List<GrantedAuthority> authorities = ((List<?>) parsedToken.getBody()
-                        .get("rol")).stream()
-                        .map(authority -> new SimpleGrantedAuthority((String) authority))
-                        .collect(Collectors.toList());
-
-                if (StringUtils.isNotEmpty(username)) {
-                    return new UsernamePasswordAuthenticationToken(username, null, authorities);
-                }
-            } catch (ExpiredJwtException exception) {
-                log.warn("Request to parse expired JWT : {} failed : {}", token, exception.getMessage());
-            } catch (UnsupportedJwtException exception) {
-                log.warn("Request to parse unsupported JWT : {} failed : {}", token, exception.getMessage());
-            } catch (MalformedJwtException exception) {
-                log.warn("Request to parse invalid JWT : {} failed : {}", token, exception.getMessage());
-            } catch (SignatureException exception) {
-                log.warn("Request to parse JWT with invalid signature : {} failed : {}", token, exception.getMessage());
-            } catch (IllegalArgumentException exception) {
-                log.warn("Request to parse empty or null JWT : {} failed : {}", token, exception.getMessage());
+                        .parseClaimsJws(token)
+                        .getBody();
+                user = claims.getSubject();
+                userId = claims.getIssuer();
+                List<String> roleStrs = claims.get("rol", List.class);
+                if (roleStrs != null)
+                    roles = roleStrs.stream()
+                            .map(role -> new SimpleGrantedAuthority((String)role))
+                            .collect(Collectors.toList());
+            } catch (JwtException e) {
+                return null;
             }
+            if (user != null) {
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, roles);
+                usernamePasswordAuthenticationToken.setDetails(userId);
+                return usernamePasswordAuthenticationToken;
+            }
+            return null;
         }
-
         return null;
+    }
+
+    private String getToken(HttpServletRequest req) {
+        boolean isTokenInHeader = req.getHeader(TOKEN_HEADER) != null;
+
+        if (isTokenInHeader) {
+            return req.getHeader(TOKEN_HEADER).replace(TOKEN_PREFIX, "");
+        } else {
+            return req.getParameter("auth-jwt-token");
+        }
     }
 }
