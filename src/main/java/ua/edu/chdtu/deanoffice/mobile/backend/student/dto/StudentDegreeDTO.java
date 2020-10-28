@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StudentDegreeDTO {
-    private NamedDTO studentGroup;
+    private StudentGroupDTO studentGroup;
     private SpecializationDTO specialization;
     private boolean active;
 }

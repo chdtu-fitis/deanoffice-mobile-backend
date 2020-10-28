@@ -12,4 +12,5 @@ public class StudentDTO {
     private String surname;
     private String patronimic;
     private Set<StudentDegreeDTO> degrees;
+    private int year;
 }
