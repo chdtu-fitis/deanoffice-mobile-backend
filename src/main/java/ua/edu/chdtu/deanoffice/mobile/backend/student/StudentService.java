@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static ua.edu.chdtu.deanoffice.mobile.backend.security.SecurityConstants.TOKEN;
+
 @Service
 public class StudentService {
     CurrentYearService currentYearService;
@@ -29,7 +31,7 @@ public class StudentService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjA0MDQ5NDY0LCJpc3MiOiIxIiwicm9sIjpbIlJPTEVfREVBTk9GRklDRVIiXX0.Z2ejurlCnsvfgsdj9u5SZ-_smdd1j_a73Y7v0HMaOgumJtxqpYczJ-EoGWRKpSZFP-ZO-omcM-WLgMAH84-s1Q");
+        headers.set("Authorization", TOKEN);
 
         HttpEntity request = new HttpEntity(headers);
         ResponseEntity<StudentDTO> response = this.restTemplate.exchange(url, HttpMethod.GET, request, StudentDTO.class, 1);
@@ -37,12 +39,6 @@ public class StudentService {
         Set<StudentDegreeDTO> degrees = student.getDegrees().stream().filter(x -> x.isActive()).collect(Collectors.toSet());
         student.setDegrees(degrees);
 
-        int groupId = -1;
-        for(StudentDegreeDTO studentDegree : degrees) {
-            groupId = studentDegree.getStudentGroup().getId();
-        }
-
-        student.setYear(getStudentYear(getStudentGroup(groupId)));
         return student;
     }
 
@@ -51,22 +47,39 @@ public class StudentService {
         int id = -1;
 
         Set<StudentDegreeDTO> degrees = student.getDegrees();
-        for(StudentDegreeDTO studentDegree : degrees)
+        for (StudentDegreeDTO studentDegree : degrees)
             id = studentDegree.getSpecialization().getDegree().getId();
         return id;
     }
 
-    private int getStudentYear(StudentGroupDTO studentGroup) {
-        return currentYearService.getYear() - studentGroup.getCreationYear() + studentGroup.getBeginYears();
+    public int getGroupId() {
+        int groupId = -1;
+        StudentDTO student = getStudentInfo();
+        for (StudentDegreeDTO studentDegree : student.getDegrees()) {
+            groupId = studentDegree.getStudentGroup().getId();
+        }
+
+        return groupId;
     }
 
-    private StudentGroupDTO getStudentGroup(int groupId) {
+    public Semester getStudentSemester() {
+        StudentGroupDTO studentGroup = getStudentGroup(getGroupId());
+        int year = currentYearService.getYear() - studentGroup.getCreationYear() + studentGroup.getBeginYears();
+
+        Semester semester = new Semester();
+        semester.setFirst(year % 2 == 0 ? year - 1 : year);
+        semester.setSecond(year % 2 == 0 ? year : year + 1);
+
+        return semester;
+    }
+
+    public StudentGroupDTO getStudentGroup(int groupId) {
 
         String url = "http://localhost:8080/groups/" + groupId;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjA0MDQ5NDY0LCJpc3MiOiIxIiwicm9sIjpbIlJPTEVfREVBTk9GRklDRVIiXX0.Z2ejurlCnsvfgsdj9u5SZ-_smdd1j_a73Y7v0HMaOgumJtxqpYczJ-EoGWRKpSZFP-ZO-omcM-WLgMAH84-s1Q");
+        headers.set("Authorization", TOKEN);
 
         HttpEntity request = new HttpEntity(headers);
         ResponseEntity<StudentGroupDTO> response = this.restTemplate.exchange(url, HttpMethod.GET, request, StudentGroupDTO.class, 1);
