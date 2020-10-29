@@ -42,28 +42,32 @@ public class StudentService {
         return student;
     }
 
-    public int getUserDegree() {
-        StudentDTO student = getStudentInfo();
+    public int getDegreeId(int studentDegreeId) {
         int id = -1;
+        StudentDTO student = getStudentInfo();
 
-        Set<StudentDegreeDTO> degrees = student.getDegrees();
-        for (StudentDegreeDTO studentDegree : degrees)
-            id = studentDegree.getSpecialization().getDegree().getId();
+        for (StudentDegreeDTO studentDegree : student.getDegrees()) {
+            if (studentDegree.getId() == studentDegreeId)
+                id = studentDegree.getSpecialization().getDegree().getId();
+        }
+
         return id;
     }
 
-    public int getGroupId() {
+    private int getGroupId(int studentDegreeId) {
         int groupId = -1;
         StudentDTO student = getStudentInfo();
+
         for (StudentDegreeDTO studentDegree : student.getDegrees()) {
-            groupId = studentDegree.getStudentGroup().getId();
+            if(studentDegree.getId() == studentDegreeId)
+                groupId = studentDegree.getStudentGroup().getId();
         }
 
         return groupId;
     }
 
-    public Semester getStudentSemester() {
-        StudentGroupDTO studentGroup = getStudentGroup(getGroupId());
+    public Semester getStudentSemester(int studentDegreeIds) {
+        StudentGroupDTO studentGroup = getStudentGroup(getGroupId(studentDegreeIds));
         int year = currentYearService.getYear() - studentGroup.getCreationYear() + studentGroup.getBeginYears();
 
         Semester semester = new Semester();
@@ -74,7 +78,6 @@ public class StudentService {
     }
 
     public StudentGroupDTO getStudentGroup(int groupId) {
-
         String url = "http://localhost:8080/groups/" + groupId;
 
         HttpHeaders headers = new HttpHeaders();

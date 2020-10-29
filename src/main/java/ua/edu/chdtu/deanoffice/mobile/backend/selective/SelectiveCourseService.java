@@ -27,18 +27,18 @@ public class SelectiveCourseService {
         this.currentYearService = currentYearService;
     }
 
-    public SelectiveCourses getSelectiveCourses() {
+    public SelectiveCourses getSelectiveCourses(int studentDegreeId) {
         SelectiveCourses selectiveCourses = new SelectiveCourses();
-        Semester semester = studentService.getStudentSemester();
+        Semester semester = studentService.getStudentSemester(studentDegreeId);
 
-        selectiveCourses.setSelectiveCoursesFirstSemester(arrayToList(getSelectiveCoursesForSemester(semester.getFirst())));
-        selectiveCourses.setSelectiveCoursesSecondSemester(arrayToList(getSelectiveCoursesForSemester(semester.getSecond())));
+        selectiveCourses.setSelectiveCoursesFirstSemester(arrayToList(getSelectiveCoursesForSemester(semester.getFirst(), studentDegreeId)));
+        selectiveCourses.setSelectiveCoursesSecondSemester(arrayToList(getSelectiveCoursesForSemester(semester.getSecond(), studentDegreeId)));
 
         return selectiveCourses;
     }
 
-    private SelectiveCourseDTO[] getSelectiveCoursesForSemester(int semester) {
-        String url = "http://localhost:8080/selective-courses?studyYear=" + (currentYearService.getYear() + 1) + "&degreeId=" + studentService.getUserDegree() + "&semester=" + semester;
+    private SelectiveCourseDTO[] getSelectiveCoursesForSemester(int semester, int studentDegreeId) {
+        String url = "http://localhost:8080/selective-courses?studyYear=" + (currentYearService.getYear() + 1) + "&degreeId=" + studentService.getDegreeId(studentDegreeId) + "&semester=" + semester;
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.set("Authorization", TOKEN);
