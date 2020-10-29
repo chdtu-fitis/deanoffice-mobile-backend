@@ -15,7 +15,7 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public ResponseEntity getInfoAboutStudent() {
-        return ResponseEntity.ok(restService.getStudentInfo());
+    public ResponseEntity getStudent() {
+        return ResponseEntity.ok(restService.getStudent());
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SelectiveCourseDTO {
+public class SelectiveCoursesDTO {
     private Integer id;
     private boolean available;
     private CourseDTO course;

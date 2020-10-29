@@ -26,7 +26,7 @@ public class StudentService {
         this.currentYearService = currentYearService;
     }
 
-    public StudentDTO getStudentInfo() {
+    public StudentDTO getStudent() {
         String url = "http://localhost:8080/students/" + JwtUtil.getUserIdInt() + "/degrees";
 
         HttpHeaders headers = new HttpHeaders();
@@ -44,7 +44,7 @@ public class StudentService {
 
     public int getDegreeId(int studentDegreeId) {
         int id = -1;
-        StudentDTO student = getStudentInfo();
+        StudentDTO student = getStudent();
 
         for (StudentDegreeDTO studentDegree : student.getDegrees()) {
             if (studentDegree.getId() == studentDegreeId)
@@ -56,7 +56,7 @@ public class StudentService {
 
     private int getGroupId(int studentDegreeId) {
         int groupId = -1;
-        StudentDTO student = getStudentInfo();
+        StudentDTO student = getStudent();
 
         for (StudentDegreeDTO studentDegree : student.getDegrees()) {
             if(studentDegree.getId() == studentDegreeId)
