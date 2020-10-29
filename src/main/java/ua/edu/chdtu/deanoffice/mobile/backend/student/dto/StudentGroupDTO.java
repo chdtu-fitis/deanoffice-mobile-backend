@@ -5,8 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SpecializationDTO {
+public class StudentGroupDTO {
+    private int id;
     private String name;
-    private NamedDTO speciality;
-    private DegreeDTO degree;
+    private int studySemesters;
+    private int creationYear;
+    private int beginYears;
 }

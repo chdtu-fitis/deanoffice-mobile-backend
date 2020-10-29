@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.edu.chdtu.deanoffice.mobile.backend.student.dto.StudentDTO;
-
-import static ua.edu.chdtu.deanoffice.mobile.backend.general.mapper.Mapper.map;
 
 @RestController
 public class StudentController {
@@ -18,7 +15,7 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public ResponseEntity getInfoAboutStudent() {
-        return ResponseEntity.ok(map(restService.getStudentInfo(), StudentDTO.class));
+    public ResponseEntity getStudent() {
+        return ResponseEntity.ok(restService.getStudent());
     }
 }

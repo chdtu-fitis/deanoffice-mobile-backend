@@ -1,43 +1,93 @@
 package ua.edu.chdtu.deanoffice.mobile.backend.student;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ua.edu.chdtu.deanoffice.mobile.backend.entity.Student;
-import ua.edu.chdtu.deanoffice.mobile.backend.entity.StudentDegree;
+import ua.edu.chdtu.deanoffice.mobile.backend.currentYear.CurrentYearService;
 import ua.edu.chdtu.deanoffice.mobile.backend.security.JwtUtil;
+import ua.edu.chdtu.deanoffice.mobile.backend.student.dto.StudentDTO;
+import ua.edu.chdtu.deanoffice.mobile.backend.student.dto.StudentDegreeDTO;
+import ua.edu.chdtu.deanoffice.mobile.backend.student.dto.StudentGroupDTO;
 
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static ua.edu.chdtu.deanoffice.mobile.backend.security.SecurityConstants.TOKEN;
+
 @Service
 public class StudentService {
-
+    CurrentYearService currentYearService;
     private final RestTemplate restTemplate;
 
-    public StudentService(RestTemplateBuilder restTemplateBuilder) {
+    public StudentService(RestTemplateBuilder restTemplateBuilder, CurrentYearService currentYearService) {
         this.restTemplate = restTemplateBuilder.build();
+        this.currentYearService = currentYearService;
     }
 
-    public Student getStudentInfo() {
+    public StudentDTO getStudent() {
         String url = "http://localhost:8080/students/" + JwtUtil.getUserIdInt() + "/degrees";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjA0MDQ5NDY0LCJpc3MiOiIxIiwicm9sIjpbIlJPTEVfREVBTk9GRklDRVIiXX0.Z2ejurlCnsvfgsdj9u5SZ-_smdd1j_a73Y7v0HMaOgumJtxqpYczJ-EoGWRKpSZFP-ZO-omcM-WLgMAH84-s1Q");
+        headers.set("Authorization", TOKEN);
 
         HttpEntity request = new HttpEntity(headers);
-        ResponseEntity<Student> response = this.restTemplate.exchange(url, HttpMethod.GET, request, Student.class, 1);
-        Student student = response.getBody();
-        Set<StudentDegree> degrees = student.getDegrees().stream().filter(x -> x.isActive()).collect(Collectors.toSet());
+        ResponseEntity<StudentDTO> response = this.restTemplate.exchange(url, HttpMethod.GET, request, StudentDTO.class, 1);
+        StudentDTO student = response.getBody();
+        Set<StudentDegreeDTO> degrees = student.getDegrees().stream().filter(x -> x.isActive()).collect(Collectors.toSet());
         student.setDegrees(degrees);
 
         return student;
+    }
+
+    public int getDegreeId(int studentDegreeId) {
+        int id = -1;
+        StudentDTO student = getStudent();
+
+        for (StudentDegreeDTO studentDegree : student.getDegrees()) {
+            if (studentDegree.getId() == studentDegreeId)
+                id = studentDegree.getSpecialization().getDegree().getId();
+        }
+
+        return id;
+    }
+
+    private int getGroupId(int studentDegreeId) {
+        int groupId = -1;
+        StudentDTO student = getStudent();
+
+        for (StudentDegreeDTO studentDegree : student.getDegrees()) {
+            if(studentDegree.getId() == studentDegreeId)
+                groupId = studentDegree.getStudentGroup().getId();
+        }
+
+        return groupId;
+    }
+
+    public Semester getStudentSemester(int studentDegreeIds) {
+        StudentGroupDTO studentGroup = getStudentGroup(getGroupId(studentDegreeIds));
+        int year = currentYearService.getYear() - studentGroup.getCreationYear() + studentGroup.getBeginYears();
+
+        Semester semester = new Semester();
+        semester.setFirst(year * 2 - 1);
+        semester.setSecond(year * 2);
+
+        return semester;
+    }
+
+    public StudentGroupDTO getStudentGroup(int groupId) {
+        String url = "http://localhost:8080/groups/" + groupId;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.set("Authorization", TOKEN);
+
+        HttpEntity request = new HttpEntity(headers);
+        ResponseEntity<StudentGroupDTO> response = this.restTemplate.exchange(url, HttpMethod.GET, request, StudentGroupDTO.class, 1);
+        StudentGroupDTO studentGroup = response.getBody();
+
+        return studentGroup;
     }
 }
