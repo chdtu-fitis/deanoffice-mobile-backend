@@ -71,8 +71,8 @@ public class StudentService {
         int year = currentYearService.getYear() - studentGroup.getCreationYear() + studentGroup.getBeginYears();
 
         Semester semester = new Semester();
-        semester.setFirst(year % 2 == 0 ? year - 1 : year);
-        semester.setSecond(year % 2 == 0 ? year : year + 1);
+        semester.setFirst(year * 2 - 1);
+        semester.setSecond(year * 2);
 
         return semester;
     }

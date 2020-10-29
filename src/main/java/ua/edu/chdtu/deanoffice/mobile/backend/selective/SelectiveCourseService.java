@@ -39,7 +39,7 @@ public class SelectiveCourseService {
 
 
     private SelectiveCoursesDTO[] getSelectiveCoursesForSemester(int semester, int studentDegreeId) {
-        String url = "http://localhost:8080/selective-courses?studyYear=" + (currentYearService.getYear() + 1) + "&degreeId=" + studentService.getDegreeId(studentDegreeId) + "&semester=" + semester;
+        String url = "http://localhost:8080/selective-courses?studyYear=" + (currentYearService.getYear()) + "&degreeId=" + studentService.getDegreeId(studentDegreeId) + "&semester=" + semester;
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.set("Authorization", TOKEN);
