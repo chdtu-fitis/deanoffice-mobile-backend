@@ -1,9 +1,8 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.application.applicationType;
+package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import ua.edu.chdtu.deanoffice.mobile.backend.dto.ApplicationTypeDTO;
 import ua.edu.chdtu.deanoffice.mobile.backend.entity.ApplicationType;
 
 import java.util.List;

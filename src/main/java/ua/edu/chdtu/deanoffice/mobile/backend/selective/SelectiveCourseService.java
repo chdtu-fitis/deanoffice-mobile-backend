@@ -36,8 +36,6 @@ public class SelectiveCourseService {
         return selectiveCourses;
     }
 
-
-
     private SelectiveCoursesDTO[] getSelectiveCoursesForSemester(int semester, int studentDegreeId) {
         String url = "http://localhost:8080/selective-courses?studyYear=" + (currentYearService.getYear()) + "&degreeId=" + studentService.getDegreeId(studentDegreeId) + "&semester=" + semester;
         HttpHeaders headers = new HttpHeaders();

@@ -1,8 +1,13 @@
 package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Parameters {
-    public String json;
-    public int applicationType;
+    private String json;
+    private int applicationType;
 
     public Parameters(String json, int applicationType) {
         this.json = json;

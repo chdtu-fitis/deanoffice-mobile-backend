@@ -14,7 +14,7 @@ public class JwtUtil {
         return Integer.parseInt((String)SecurityContextHolder.getContext().getAuthentication().getDetails());
     }
 
-    public String generateToken(User u, List<String> roles, String id) {
+    public static String generateToken(User u, List<String> roles, String id) {
         byte[] signingKey = SecurityConstants.JWT_SECRET.getBytes();
 
         return Jwts.builder()

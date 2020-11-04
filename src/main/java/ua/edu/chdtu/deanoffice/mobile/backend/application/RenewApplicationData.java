@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.application.dataForApplication;
+package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
 import lombok.Getter;
 import lombok.Setter;

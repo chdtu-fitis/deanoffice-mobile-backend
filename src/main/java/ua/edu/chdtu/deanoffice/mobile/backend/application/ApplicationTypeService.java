@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.application.applicationType;
+package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

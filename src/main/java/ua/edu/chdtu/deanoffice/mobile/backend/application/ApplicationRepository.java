@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.application.generateApplication;
+package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
