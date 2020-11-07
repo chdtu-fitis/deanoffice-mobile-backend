@@ -70,6 +70,9 @@ CREATE TABLE student_degree (
 ALTER TABLE ONLY faculty
     ADD CONSTRAINT uk_faculty_name UNIQUE (name);
 
+ALTER TABLE ONLY faculty
+    ADD CONSTRAINT uk_faculty_abbr UNIQUE (abbr);
+
 ALTER TABLE ONLY application_user
     ADD CONSTRAINT uk_application_user_username UNIQUE (username);
 
@@ -87,9 +90,6 @@ ALTER TABLE ONLY application_type
 
 ALTER TABLE ONLY specialization
     ADD CONSTRAINT uk_specialization_name UNIQUE (name);
-
-ALTER TABLE ONLY faculty
-    ADD CONSTRAINT uk_faculty_abbr UNIQUE (abbr);
 
 ALTER TABLE ONLY student_group
     ADD CONSTRAINT uk_student_group_name UNIQUE (name);
