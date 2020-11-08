@@ -1,10 +1,9 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.application.generateApplication;
+package ua.edu.chdtu.deanoffice.mobile.backend.application;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ua.edu.chdtu.deanoffice.mobile.backend.application.Parameters;
 
 @RestController
 public class GenerateApplicationController {
@@ -14,7 +13,7 @@ public class GenerateApplicationController {
         this.generateApplicationService = generateApplicationService;
     }
 
-    @GetMapping("/generate-application")
+    @GetMapping("/applications")
     public ResponseEntity getApplication(@RequestParam String json, @RequestParam int applicationType)
     {
         Parameters parameters = new Parameters(json, applicationType);

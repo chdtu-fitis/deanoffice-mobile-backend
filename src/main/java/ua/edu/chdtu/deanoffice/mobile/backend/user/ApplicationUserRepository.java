@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.applicationUser;
+package ua.edu.chdtu.deanoffice.mobile.backend.user;
 
 import ua.edu.chdtu.deanoffice.mobile.backend.entity.ApplicationUser;
 import org.springframework.data.jpa.repository.JpaRepository;

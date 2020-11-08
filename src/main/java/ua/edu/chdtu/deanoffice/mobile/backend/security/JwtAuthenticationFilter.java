@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private JwtUtil jwtUtil = new JwtUtil();
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -54,7 +53,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String id = "" + ((CurrentUserDetails) authentication.getPrincipal()).getId();
 
-        String token = jwtUtil.generateToken(user, roles, id);
+        String token = JwtUtil.generateToken(user, roles, id);
 
         response.addHeader(SecurityConstants.TOKEN_HEADER, SecurityConstants.TOKEN_PREFIX + token);
         response.getWriter().write("{\"token\":\"" + token + "\"}");

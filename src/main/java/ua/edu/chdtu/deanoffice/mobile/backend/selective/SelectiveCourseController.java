@@ -16,7 +16,7 @@ public class SelectiveCourseController {
     }
 
     @GetMapping("/selective-courses")
-    public ResponseEntity getSelectiveCourses(@RequestParam int studentDegreeId) {
+    public ResponseEntity<SelectiveCourses> getSelectiveCourses(@RequestParam int studentDegreeId) {
         return ResponseEntity.ok(selectiveCourseService.getSelectiveCourses(studentDegreeId));
     }
 }

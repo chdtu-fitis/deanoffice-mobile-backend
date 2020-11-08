@@ -1,7 +1,7 @@
 package ua.edu.chdtu.deanoffice.mobile.backend.security;
 
 import ua.edu.chdtu.deanoffice.mobile.backend.entity.ApplicationUser;
-import ua.edu.chdtu.deanoffice.mobile.backend.applicationUser.ApplicationUserRepository;
+import ua.edu.chdtu.deanoffice.mobile.backend.user.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
