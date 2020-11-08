@@ -86,10 +86,10 @@ ALTER TABLE ONLY application_type
     ADD CONSTRAINT uk_application_type_name UNIQUE (name);
 
 ALTER TABLE ONLY speciality
-    ADD CONSTRAINT uk_speciality_code UNIQUE (code);
+    ADD CONSTRAINT uk_speciality_name_code UNIQUE (name, code);
 
-ALTER TABLE ONLY speciality
-    ADD CONSTRAINT uk_speciality_name UNIQUE (name);
+ALTER TABLE ONLY specialization
+    ADD CONSTRAINT uk_specialization_name_speciality_id_faculty_id_degree_id UNIQUE (name, speciality_id, faculty_id, degree_id);
 
 ALTER TABLE ONLY specialization
     ADD CONSTRAINT fk_educational_programs_faculty_id FOREIGN KEY (faculty_id) REFERENCES faculty(id);
