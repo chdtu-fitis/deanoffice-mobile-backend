@@ -66,8 +66,8 @@ public class StudentService {
         return groupId;
     }
 
-    public Semester getStudentSemester(int studentDegreeIds) {
-        StudentGroupDTO studentGroup = getStudentGroup(getGroupId(studentDegreeIds));
+    public Semester getStudentSemester(int studentDegreeId) {
+        StudentGroupDTO studentGroup = getStudentGroup(getGroupId(studentDegreeId));
         int year = currentYearService.getYear() - studentGroup.getCreationYear() + studentGroup.getBeginYears();
 
         Semester semester = new Semester();

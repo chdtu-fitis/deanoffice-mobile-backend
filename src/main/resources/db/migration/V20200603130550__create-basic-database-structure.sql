@@ -82,17 +82,8 @@ ALTER TABLE ONLY degree
 ALTER TABLE ONLY application
     ADD CONSTRAINT uk_application_application_type_id UNIQUE (application_type_id);
 
-ALTER TABLE ONLY application
-    ADD CONSTRAINT uk_application_body UNIQUE (body);
-
 ALTER TABLE ONLY application_type
     ADD CONSTRAINT uk_application_type_name UNIQUE (name);
-
-ALTER TABLE ONLY specialization
-    ADD CONSTRAINT uk_specialization_name UNIQUE (name);
-
-ALTER TABLE ONLY student_group
-    ADD CONSTRAINT uk_student_group_name UNIQUE (name);
 
 ALTER TABLE ONLY speciality
     ADD CONSTRAINT uk_speciality_code UNIQUE (code);

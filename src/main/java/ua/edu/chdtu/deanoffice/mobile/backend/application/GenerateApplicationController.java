@@ -13,7 +13,7 @@ public class GenerateApplicationController {
         this.generateApplicationService = generateApplicationService;
     }
 
-    @GetMapping("/generate-application")
+    @GetMapping("/applications")
     public ResponseEntity getApplication(@RequestParam String json, @RequestParam int applicationType)
     {
         Parameters parameters = new Parameters(json, applicationType);
