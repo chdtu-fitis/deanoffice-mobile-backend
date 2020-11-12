@@ -14,8 +14,7 @@ public class GenerateApplicationController {
     }
 
     @GetMapping("/applications")
-    public ResponseEntity getApplication(@RequestParam String json, @RequestParam int applicationType)
-    {
+    public ResponseEntity getApplication(@RequestParam String json, @RequestParam int applicationType) {
         Parameters parameters = new Parameters(json, applicationType);
         return ResponseEntity.ok(generateApplicationService.createApplication(parameters));
     }
