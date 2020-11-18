@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SpecializationDTO {
+public class SpecialityDTO {
+    private int id;
     private String name;
-    private SpecialityDTO speciality;
-    private DegreeDTO degree;
+    private String code;
 }

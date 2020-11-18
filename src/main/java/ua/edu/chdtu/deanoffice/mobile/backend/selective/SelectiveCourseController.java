@@ -3,6 +3,7 @@ package ua.edu.chdtu.deanoffice.mobile.backend.selective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.SelectiveCoursesStudentDegreeDTO;
 import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.SelectiveCoursesStudentDegreeWriteDTO;
 
 @RestController
@@ -21,9 +22,7 @@ public class SelectiveCourseController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity getConfirmedSelectiveCourses(@RequestBody SelectiveCoursesStudentDegreeWriteDTO selectiveCoursesStudentDegreeWriteDTO) {
-        System.out.println("StudentDegree: " + selectiveCoursesStudentDegreeWriteDTO.getStudentDegreeId());
-        selectiveCoursesStudentDegreeWriteDTO.getSelectiveCourses().forEach(x -> System.out.println(x));
-        return ResponseEntity.ok(selectiveCourseService.recordOnSelectiveCourse(selectiveCoursesStudentDegreeWriteDTO));
+    public ResponseEntity<SelectiveCoursesStudentDegreeDTO> getConfirmedSelectiveCourses(@RequestBody SelectiveCoursesStudentDegreeWriteDTO selectiveCoursesStudentDegreeWriteDTO) {
+        return selectiveCourseService.recordOnSelectiveCourses(selectiveCoursesStudentDegreeWriteDTO);
     }
 }

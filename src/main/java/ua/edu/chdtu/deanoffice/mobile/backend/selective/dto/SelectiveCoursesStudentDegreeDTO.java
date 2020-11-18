@@ -9,5 +9,5 @@ import java.util.List;
 @Setter
 public class SelectiveCoursesStudentDegreeDTO {
     private ExistingIdDTO studentDegree;
-    private List<SelectiveCourseDTO> selectiveCourses;
+    private List<ExistingIdDTO> selectiveCourses;
 }
