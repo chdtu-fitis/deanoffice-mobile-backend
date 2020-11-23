@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import ua.edu.chdtu.deanoffice.mobile.backend.currentYear.CurrentYearService;
+import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.CheckSelectiveCoursesStudentDegreeDTO;
 import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.SelectiveCourseDTO;
 import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.SelectiveCoursesStudentDegreeDTO;
 import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.SelectiveCoursesStudentDegreeWriteDTO;
@@ -40,7 +41,7 @@ public class SelectiveCourseService {
     }
 
     private SelectiveCourseDTO[] getSelectiveCoursesForSemester(int semester, int studentDegreeId) {
-        String url = "http://localhost:8080/selective-courses?studyYear=" + (currentYearService.getYear()) + "&degreeId=" + studentService.getDegreeId(studentDegreeId) + "&semester=" + semester;
+        String url = "http://localhost:8080/selective-courses?studyYear=" + currentYearService.getYear() + "&degreeId=" + studentService.getDegreeId(studentDegreeId) + "&semester=" + semester;
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.set("Authorization", TOKEN);
@@ -59,11 +60,25 @@ public class SelectiveCourseService {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", TOKEN);
 
-            HttpEntity<SelectiveCoursesStudentDegreeWriteDTO> request = new HttpEntity<SelectiveCoursesStudentDegreeWriteDTO>(selectiveCoursesStudentDegreeWriteDTO, headers);
+            HttpEntity<SelectiveCoursesStudentDegreeWriteDTO> request = new HttpEntity(selectiveCoursesStudentDegreeWriteDTO, headers);
             ResponseEntity<SelectiveCoursesStudentDegreeDTO> response = restTemplate.postForEntity(url, request, SelectiveCoursesStudentDegreeDTO.class);
+
             return ResponseEntity.ok(response.getBody());
         } catch (HttpClientErrorException e) {
-            return new ResponseEntity(e.getLocalizedMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity(e.getLocalizedMessage(), e.getStatusCode());
         }
+    }
+
+    public CheckSelectiveCoursesStudentDegreeDTO checkSelectiveCoursesStudentDegree(int studentDegreeId) {
+        String url = "http://localhost:8080/selective-courses/student-courses?studyYear=" + currentYearService.getYear() + "&studentDegreeId=" + studentDegreeId;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", TOKEN);
+
+        HttpEntity request = new HttpEntity(headers);
+        ResponseEntity<CheckSelectiveCoursesStudentDegreeDTO> response = restTemplate.exchange(url, HttpMethod.GET, request, CheckSelectiveCoursesStudentDegreeDTO.class, 1);
+
+        return response.getBody();
     }
 }
