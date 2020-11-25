@@ -1,11 +1,11 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.selective.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.selective.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class DepartmentDTO {
+public class Department {
     private int id;
     private String name;
     private String abbr;

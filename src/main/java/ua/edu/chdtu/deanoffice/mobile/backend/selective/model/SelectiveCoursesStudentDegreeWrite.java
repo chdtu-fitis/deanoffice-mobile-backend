@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.selective.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.selective.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +8,9 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SelectiveCoursesStudentDegreeWriteDTO {
+public class SelectiveCoursesStudentDegreeWrite {
     @NotNull
     private List<Integer> selectiveCourses;
     @NotNull
-    private ExistingIdDTO studentDegree;
+    private ExistingId studentDegree;
 }

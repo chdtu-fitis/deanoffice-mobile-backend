@@ -1,4 +1,4 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.student.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.student.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +8,10 @@ import ua.edu.chdtu.deanoffice.mobile.backend.entity.TuitionTerm;
 
 @Getter
 @Setter
-public class StudentDegreeDTO {
+public class StudentDegree {
     private int id;
-    private StudentGroupDTO studentGroup;
-    private SpecializationDTO specialization;
+    private StudentGroup studentGroup;
+    private Specialization specialization;
     private Payment payment;
     private TuitionForm tuitionForm;
     private TuitionTerm tuitionTerm;

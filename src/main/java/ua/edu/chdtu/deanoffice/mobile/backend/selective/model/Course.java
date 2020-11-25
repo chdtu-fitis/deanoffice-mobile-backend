@@ -1,18 +1,18 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.selective.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.selective.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import ua.edu.chdtu.deanoffice.mobile.backend.student.dto.NamedDTO;
+import ua.edu.chdtu.deanoffice.mobile.backend.student.model.Named;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class CourseDTO {
+public class Course {
     private int id;
-    private NamedWithEngDTO courseName;
+    private NamedWithEng courseName;
     private Integer semester;
-    private NamedDTO knowledgeControl;
+    private Named knowledgeControl;
     private Integer hours;
     private BigDecimal credits;
     private Integer hoursPerCredit;

@@ -1,10 +1,10 @@
-package ua.edu.chdtu.deanoffice.mobile.backend.student.dto;
+package ua.edu.chdtu.deanoffice.mobile.backend.student.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class NamedDTO {
+public class Named {
     private String name;
 }

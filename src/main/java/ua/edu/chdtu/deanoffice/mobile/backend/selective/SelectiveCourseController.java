@@ -3,9 +3,9 @@ package ua.edu.chdtu.deanoffice.mobile.backend.selective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.CheckSelectiveCoursesStudentDegreeDTO;
-import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.SelectiveCoursesStudentDegreeDTO;
-import ua.edu.chdtu.deanoffice.mobile.backend.selective.dto.SelectiveCoursesStudentDegreeWriteDTO;
+import ua.edu.chdtu.deanoffice.mobile.backend.selective.model.SelectiveCoursesStudentDegree;
+import ua.edu.chdtu.deanoffice.mobile.backend.selective.model.StudentDegreeSelectiveCoursesIds;
+import ua.edu.chdtu.deanoffice.mobile.backend.selective.model.SelectiveCoursesStudentDegreeWrite;
 
 @RestController
 @RequestMapping("/selective-courses")
@@ -23,12 +23,12 @@ public class SelectiveCourseController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<SelectiveCoursesStudentDegreeDTO> getConfirmedSelectiveCourses(@RequestBody SelectiveCoursesStudentDegreeWriteDTO selectiveCoursesStudentDegreeWriteDTO) {
-        return selectiveCourseService.recordOnSelectiveCourses(selectiveCoursesStudentDegreeWriteDTO);
+    public ResponseEntity<StudentDegreeSelectiveCoursesIds> getConfirmedSelectiveCourses(@RequestBody SelectiveCoursesStudentDegreeWrite selectiveCoursesStudentDegreeWrite) {
+        return selectiveCourseService.recordOnSelectiveCourses(selectiveCoursesStudentDegreeWrite);
     }
 
-    @GetMapping("/check")
-    public ResponseEntity<CheckSelectiveCoursesStudentDegreeDTO> checkSelectiveCoursesStudentDegree(@RequestParam int studentDegreeId) {
-        return ResponseEntity.ok(selectiveCourseService.checkSelectiveCoursesStudentDegree(studentDegreeId));
+    @GetMapping("/student-degree")
+    public ResponseEntity<SelectiveCoursesStudentDegree> checkSelectiveCoursesStudentDegree(@RequestParam int studentDegreeId) {
+        return ResponseEntity.ok(selectiveCourseService.getSelectiveCoursesStudentDegree(studentDegreeId));
     }
 }
