@@ -18,7 +18,6 @@ public class SelectiveCourse {
     private Teacher teacher;
     private Named degree;
     private Department department;
-    private List<Named> fieldsOfKnowledge;
     @Enumerated(EnumType.STRING)
     private TypeCycle trainingCycle;
     private String description;
