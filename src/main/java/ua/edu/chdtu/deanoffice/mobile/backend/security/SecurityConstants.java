@@ -11,7 +11,7 @@ public final class SecurityConstants {
     public static final String TOKEN_TYPE = "JWT";
     public static final String TOKEN_AUDIENCE = "secure-app";
 
-    public static final String TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjA1Njk5MDQ0LCJpc3MiOiIxIiwicm9sIjpbIlJPTEVfREVBTk9GRklDRVIiXX0.0iujRIR2iyx2yrc_BbwJ0zNJBbW4hAxJrWjLUVzQglAeaXUw1GKQRHurE9piNUUm_ScQO21fgDFp4y_pO03FKw";
+    public static final String TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjA3MDE2ODg3LCJpc3MiOiIxIiwicm9sIjpbIlJPTEVfU1RVREVOVCJdfQ.NIjQs1oT_2e0G_uJJs5s409ZHPmvT9_mL9qxPAnuuuRZUdYoZfhE05vMAQ-EBV73pwms4xIJhPd6fB-FbxhNTQ";
 
     private SecurityConstants() {
         throw new IllegalStateException("Cannot create instance of static util class");
