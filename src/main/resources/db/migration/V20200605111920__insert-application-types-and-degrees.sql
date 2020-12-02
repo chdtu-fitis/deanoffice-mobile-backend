@@ -11,6 +11,6 @@ INSERT INTO application_type(name) VALUES ('Переведення з денно
 INSERT INTO application_type(name) VALUES ('Переведення на навчання за іншою освітньою програмою');
 INSERT INTO application_type(name) VALUES ('Переведення на навчання до іншого навчального закладу');
 
+INSERT INTO degree(name) VALUES ('Бакалавр');
 INSERT INTO degree(name) VALUES ('Спеціаліст');
-INSERT INTO degree(name) VALUES ('бакалаврського');
 INSERT INTO degree(name) VALUES ('Магістр');
